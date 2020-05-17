@@ -86,6 +86,9 @@ router.post('/register', (req, res) => {
         bcrypt.hash(req.body.password, 12).then((hash) => {
         const userObj = {
           userName: req.body.userName,
+          email: req.body.email,
+          title: req.body.title,
+          phoneNumber: req.body.phoneNumber,
           password: hash
         }
         db.collection(authCollection).insertOne(userObj)
