@@ -16,7 +16,7 @@ router.post('/login', (req, res) => {
       })
     };
 
-    const db = client.db('test');
+    const db = client.db('qa');
     const dbstatus = await db.collection(authCollection).stats();
 
     if(dbstatus.nindexes === 0) {
@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
       if(err || result.length < 1) {
         return res.status(404).json({
         status: 400,
-        message: 'Incorrect password/Username does\'t exist'
+        message: 'Incorrect password/Username doesn\'t exist'
       })
     }
     bcrypt.compare(req.body.password, result[0].password)
@@ -59,13 +59,14 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
   MongoClient.connect(dbName, async (err, client) => {
     if(err) {
+      console.log(dbName)
       return res.status(500).json({
         status: 500,
         message: 'Cannot establish connection to database'
       })
     };
 
-    const db = client.db('test');
+    const db = client.db('qa');
     const dbstatus = await db.collection(authCollection).stats();
 
     if(dbstatus.nindexes === 0) {

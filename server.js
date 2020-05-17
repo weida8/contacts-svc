@@ -5,9 +5,9 @@ import authentication from './routes/authentication'
 import contacts from './routes/contacts'
 import {isAuthenticated} from './services/isAuthenticated'
 import {dbName} from './constants'
+import {port} from './config'
 
 const app = express();
-const port = 5000;
 
 const logger = (req, res, next) => {
   next()

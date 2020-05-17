@@ -2,8 +2,8 @@ import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import {issuer, subject} from '../constants'
 
-const privateKEY  = fs.readFileSync('./private.key', 'utf8');
-const publicKEY  = fs.readFileSync('./public.key', 'utf8');
+let privateKey = fs.readFileSync('./private.key')
+let publicKey = fs.readFileSync('./public.key')
 
 export const sign = (payload) => {
   const signOptions = {
@@ -13,9 +13,8 @@ export const sign = (payload) => {
     expiresIn: "12h",
     algorithm: "RS256"
   }
-
   try {
-    return jwt.sign(payload, privateKEY, signOptions)
+    return jwt.sign(payload, privateKey, signOptions)
   } catch(err) {
     throw err;
   }
@@ -31,7 +30,7 @@ export const verify = (req) => {
     algorithm: ["RS256"]
   }
   try {
-    return jwt.verify(req.body.token, publicKEY, verifyOptions)
+    return jwt.verify(req.body.token, publicKey, verifyOptions)
   } catch (err) {
     throw err;
   }

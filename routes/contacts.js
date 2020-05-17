@@ -13,7 +13,7 @@ router.post('/getContacts', (req, res) => {
         message: 'Cannot establish connection to database'
       })
     };
-    const db = client.db('test');
+    const db = client.db('qa');
     const query = {authentication_id: req.body.userName}
     db.collection(contactsCollection).findOne(query)
       .then(response => res.json({
@@ -31,7 +31,7 @@ router.post('/addContacts', (req, res) => {
     if(err) throw err;
     console.log('connection ready')
 
-    const db = client.db('test');
+    const db = client.db('qa');
     db.collection(contactsCollection).findOneAndUpdate(
     {authentication_id: req.body.userName},
     {$push: {contactList: req.body.contact}},
